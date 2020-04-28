@@ -19,9 +19,9 @@ appropriate system log manager.
 
 ## Query Support
 
-Only user list and user status queries are supported. Queries with ambiguous
-user names will be rejected. Finger forwarding services using host names is not
-supported. The verbose flag (/W) is allowed but its value will be disregarded.
+Only the user list and user status queries are supported. Queries with
+ambiguous user names will be rejected. Queries with hostnames will be rejected.
+The verbose flag (``/W``) is accepted but will be ignored.
 
 ## Usage
 
