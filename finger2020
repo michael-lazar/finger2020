@@ -92,9 +92,9 @@ tokens = {
     "S": "( +)",
     "C": "(\r?\n)",  # Break spec and make the carriage return optional
 }
-q1_list_re = re.compile("{W}?{C}".format(**tokens), flags=re.ASCII)
-q1_search_re = re.compile("({W}{S})?{U}{C}".format(**tokens), flags=re.ASCII)
-q2_re = re.compile("({W}{S})?{U}?{H}{C}".format(**tokens), flags=re.ASCII)
+q1_list_re = re.compile("{W}?{C}".format(**tokens))
+q1_search_re = re.compile("({W}{S})?{U}{C}".format(**tokens))
+q2_re = re.compile("({W}{S})?{U}?{H}{C}".format(**tokens))
 
 
 def read_file(filename):
