@@ -38,21 +38,25 @@ echo -e "username\r\n" | finger2020
 Settings are defined through environment variables.
 
 #### ``FINGER_NAME``
-A string that will represent the user's finger name. This can be any arbitrary
-value and does not need to correspond to a real user on the system.
 
+A string that will represent the user's finger name. This can be any
+arbitrary value and does not need to correspond to a real user on the
+system.
 
 #### ``FINGER_CONTACT``
+
 This file replaces the section of the query response that contains
 information that finger would typically generate. Common values to include
 in this section include login name, real name, phone number, office,
 address, and recent system activity.
 
 #### ``FINGER_PROJECT``
+
 This file typically contains a short, single line message about what the
 user is currently working on.
 
 #### ``FINGER_PLAN``
+
 This file contains any free-form text that the user would like to include.
 Some examples might include their work calender, personalized ASCII art, or
 a TODO list.
