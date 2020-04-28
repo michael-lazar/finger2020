@@ -1,6 +1,6 @@
 # Finger2020
 
-*A tiny, secure [finger](https://en.wikipedia.org/wiki/Finger) daemon for single-user unix systems.*
+*A tiny, secure [finger](https://en.wikipedia.org/wiki/Finger_protocol) daemon for single-user unix systems.*
 
 ## Links
 
