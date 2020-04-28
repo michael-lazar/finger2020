@@ -1,0 +1,10 @@
+# /etc/systemd/system/finger2020.socket
+[Unit]
+Description=Finger Server
+
+[Socket]
+ListenStream=79
+Accept=yes
+
+[Install]
+WantedBy=sockets.target

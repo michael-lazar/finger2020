@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+"""
+finger2020 - A tiny, secure finger daemon for single-user UNIX systems.
+
+This program is designed to be hosted behind a systemd socket or a comparable
+inetd-like service. The program will read a one-line finger query from stdin.
+The response string will be written to stdout, and all error/logging messages
+will be directed to stderr and should be setup to route to an appropriate
+system log manager.
+
+This finger service will not attempt to extract any user information directly
+from the host system. So relax! Only one user profile is supported (hence,
+"single-user"). It is intended to be used by the server sysop to broadcast
+news and/or personal contact information over the internet.
+
+## Query Support
+
+Only user list {C} and user status {U}{C} queries are supported. Queries with
+ambiguous user names will be rejected. Finger forwarding services using host
+names is not supported. The verbose flag (/W) is allowed but its value will
+be disregarded.
+
+## Usage
+
+```
+# List users
+echo -e "\r\n" | ./finger2020
+
+# User status
+echo -e "username\r\n" | ./finger2020
+```
+
+## Configuration
+
+All configuration is done using environment variables:
+
+FINGER_NAME
+    The "login name" that the finger user will be displayed as. This is
+    typically a lowercase ASCII user handle.
+
+FINGER_CONTACT
+    This file replaces the section of the query response that contains
+    information that finger would typically automatically generate. Common
+    values in this section include login name, real name, phone number,
+    address, is the user logged in, the last time their email was checked, etc.
+
+FINGER_PROJECT
+    This file typically contains a short, single line message about what the
+    user is currently working on.
+
+FINGER_PLAN
+    This file typically contains freeform text that the user would like to
+    broadcast. There is no recommended format and a user might include things
+    like their work calender, personal ascii art, or a list of tasks to do.
+"""
+import os
+import re
+import sys
+
+__author__ = "Michael Lazar"
+__copyright__ = "(c) 2020 Michael Lazar"
+__license__ = "The MIT License (MIT)"
+__title__ = "finger2020"
+__version__ = "1.0.0"
+
+if sys.version_info[:2] < (3, 6):
+    raise RuntimeError("Unsupported python version, required 3.6+")
+
+HOME = os.path.expanduser("~")
+
+FINGER_NAME = os.getenv("FINGER_NAME", "anonymous")
+FINGER_CONTACT = os.getenv("FINGER_CONTACT", os.path.join(HOME, ".contact"))
+FINGER_PLAN = os.getenv("FINGER_PLAN", os.path.join(HOME, ".plan"))
+FINGER_PROJECT = os.getenv("FINGER_PROJECT", os.path.join(HOME, ".project"))
+
+# Query specification:
+#   {Q1}    ::= [{W}|{W}{S}{U}]{C}
+#   {Q2}    ::= [{W}{S}][{U}]{H}{C}
+#   {U}     ::= username
+#   {H}     ::= @hostname | @hostname{H}
+#   {W}     ::= /W
+#   {S}     ::= <SP> | <SP>{S}
+#   {C}     ::= <CRLF>
+#
+# Note: I suspect the definition for {Q1} is incomplete because the examples
+#   show querying for a {U} user without the {W} token. My interpretation of
+#   the intended implementation is [ {W} | {U} | {W}{S}{U} ] {C}
+tokens = {
+    "U": "(?P<username>\\w+)",
+    "H": "(?P<hostname>@[\\w@.]+)",
+    "W": "(/W)",  # Verbose mode, this flag is ignored
+    "S": "( +)",
+    "C": "(\r?\n)",  # Break spec and make the carriage return optional
+}
+q1_list_re = re.compile("{W}?{C}".format(**tokens), flags=re.ASCII)
+q1_search_re = re.compile("({W}{S})?{U}{C}".format(**tokens), flags=re.ASCII)
+q2_re = re.compile("({W}{S})?{U}?{H}{C}".format(**tokens), flags=re.ASCII)
+
+
+def read_file(filename):
+    try:
+        with open(filename) as fp:
+            # Normalize file line endings to <CR><LF>
+            text = "\r\n".join(line.rstrip() for line in fp.readlines())
+    except OSError:
+        text = ""
+    return text
+
+
+def handle(query):
+    # We don't need no stinkin' := walrus operator, see?
+    match = q2_re.fullmatch(query)
+    if match:
+        return "Finger forwarding service denied"
+
+    match = q1_search_re.fullmatch(query)
+    if match:
+        if match.group("username") == FINGER_NAME:
+            contact = read_file(FINGER_CONTACT)
+            project = read_file(FINGER_PROJECT).strip()
+            plan = read_file(FINGER_PLAN)
+            return f"{contact}\r\nProject: {project}\r\nPlan:\r\n{plan}\r\n"
+        else:
+            return "Finger user not found"
+
+    match = q1_list_re.fullmatch(query)
+    if match:
+        return f"Users:\r\n{FINGER_NAME}"
+
+    return "Finger invalid query"
+
+
+def main():
+    query = sys.stdin.readline(1024)
+    sys.stderr.write(f"Received query: {query!r}\n")
+    response = handle(query)
+    sys.stdout.write(response)
+
+
+if __name__ == "__main__":
+    main()
