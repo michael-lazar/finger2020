@@ -1,4 +1,4 @@
-# Finger2020
+# finger2020
 
 *A tiny, secure [finger](https://en.wikipedia.org/wiki/Finger_protocol) daemon for single-user unix systems.*
 
