@@ -4,10 +4,10 @@
 
 ## About
 
-This finger service will not extract any user information directly from the host
-system. So relax! Only one user profile is supported (hence, "single-user").
-It's intended to be used by server sysops to broadcast news and/or personal
-contact information over the internet.
+This finger service uses files to load contact information, and will not extract
+any sensitive information directly from the host system. So relax! Only one user
+profile is supported (hence, "single-user"). It's intended to be used by sysops
+to broadcast server news and/or personal contact information over the internet.
 
 ## Operation
 
