@@ -61,3 +61,4 @@ like their work calender, personal ascii art, or a list of tasks to do.
 
 - [RFC 1288 - The Finger User Information Protocol](https://tools.ietf.org/html/rfc1288)
 - [History of the Finger Protocol](http://www.rajivshah.com/Case_Studies/Finger/Finger.htm)
+- [finger URL Specification](https://tools.ietf.org/html/draft-ietf-uri-url-finger-02)
