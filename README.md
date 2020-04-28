@@ -26,12 +26,12 @@ supported. The verbose flag (`/W`) is allowed but its value will be disregarded.
 
 ## Usage
 
-```
+```bash
 # Query user list
-echo -e "\r\n" | ./finger2020
+echo -e "\r\n" | finger2020
 
 # Query user information
-echo -e "username\r\n" | ./finger2020
+echo -e "username\r\n" | finger2020
 ```
 
 ## Configuration
