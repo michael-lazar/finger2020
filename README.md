@@ -38,8 +38,7 @@ echo -e "username\r\n" | finger2020
 Settings are defined through environment variables.
 
 #### ``FINGER_NAME``
-A string that represents the user's handle, or "login name". This value is
-typically lowercase ascii with no spaces.
+A string that represents the user's handle, or "login name".
 
 #### ``FINGER_CONTACT``
 This file replaces the section of the query response that contains
