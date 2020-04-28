@@ -6,7 +6,7 @@
 
 This finger service will not extract any user information directly from the host
 system. So relax! Only one user profile is supported (hence, "single-user").
-It's intended to be used by the server's sysop to broadcast news and/or personal
+It's intended to be used by server sysops to broadcast news and/or personal
 contact information over the internet.
 
 ## Operation
