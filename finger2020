@@ -1,28 +1,31 @@
 #!/usr/bin/env python3
 """
-finger2020 - A tiny, secure finger daemon for single-user UNIX systems.
+finger2020 - A tiny, secure finger daemon for single-user UNIX systems
+
+## About
+
+This finger service uses files to load contact information, and will not extract
+any sensitive information directly from the host system. So relax! Only one user
+profile is supported (hence, "single-user"). It's intended to be used by sysops
+to broadcast server news and/or personal contact information over the internet.
+
+## Operation
 
 This program is designed to be hosted behind a systemd socket or a comparable
-inetd-like service. The program will read a one-line finger query from stdin.
-The response string will be written to stdout, and all error/logging messages
-will be directed to stderr and should be setup to route to an appropriate
-system log manager.
-
-This finger service will not attempt to extract any user information directly
-from the host system. So relax! Only one user profile is supported (hence,
-"single-user"). It is intended to be used by the server sysop to broadcast
-news and/or personal contact information over the internet.
+``inetd``-like service. The program will read a one-line finger query from
+stdin. The response string will be written to stdout, and all error/logging
+messages will be directed to stderr and should be setup to route to an
+appropriate system log manager.
 
 ## Query Support
 
-Only user list {C} and user status {U}{C} queries are supported. Queries with
-ambiguous user names will be rejected. Finger forwarding services using host
-names is not supported. The verbose flag (/W) is allowed but its value will
-be disregarded.
+Only user list and user status queries are supported. Queries with ambiguous
+user names will be rejected. Finger forwarding services using host names is not
+supported. The verbose flag (/W) is allowed but its value will be disregarded.
 
 ## Usage
 
-```
+```bash
 # List users
 echo -e "\r\n" | ./finger2020
 
@@ -31,8 +34,6 @@ echo -e "username\r\n" | ./finger2020
 ```
 
 ## Configuration
-
-All configuration is done using environment variables:
 
 FINGER_NAME
     The "login name" that the finger user will be displayed as. This is
