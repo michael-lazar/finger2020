@@ -115,7 +115,7 @@ def render_user_info():
     contact = read_file(FINGER_CONTACT)
     project = read_file(FINGER_PROJECT).strip()
     plan = read_file(FINGER_PLAN)
-    return f"{contact}\r\nProject: {project}\r\nPlan:\r\n{plan}\r\n"
+    return "\r\n".join([contact, "", f"Project: {project}", "Plan:", plan])
 
 
 def handle(query):
@@ -133,8 +133,7 @@ def handle(query):
 
     match = q1_list_re.fullmatch(query)
     if match:
-        # No point in showing a directory since we only have a single user
-        return render_user_info()
+        return f"There is only one user on this server: {FINGER_NAME}"
 
     return "Finger invalid query"
 
