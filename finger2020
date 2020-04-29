@@ -87,7 +87,8 @@ FINGER_PROJECT = os.getenv("FINGER_PROJECT", os.path.join(HOME, ".project"))
 #
 # Note: I suspect the definition for {Q1} is incomplete because the examples
 #   show querying for a {U} user without the {W} token. My interpretation of
-#   the intended implementation is [ {W} | {U} | {W}{S}{U} ] {C}
+#   the intended implementation is [ {W} | {U} | {W}{S}{U} ] {C}.
+# Note: The links browser appears to break spec and send "/W \r\n".
 tokens = {
     "U": "(?P<username>\\w+)",
     "H": "(?P<hostname>@[\\w@.]+)",
@@ -95,7 +96,7 @@ tokens = {
     "S": "( +)",
     "C": "(\r?\n)",  # Break spec and make the carriage return optional
 }
-q1_list_re = re.compile("{W}?{C}".format(**tokens))
+q1_list_re = re.compile("({W}{S}?)?{C}".format(**tokens))
 q1_search_re = re.compile("({W}{S})?{U}{C}".format(**tokens))
 q2_re = re.compile("({W}{S})?{U}?{H}{C}".format(**tokens))
 
