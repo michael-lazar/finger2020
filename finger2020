@@ -111,8 +111,15 @@ def read_file(filename):
     return text
 
 
+def render_user_info():
+    contact = read_file(FINGER_CONTACT)
+    project = read_file(FINGER_PROJECT).strip()
+    plan = read_file(FINGER_PLAN)
+    return f"{contact}\r\nProject: {project}\r\nPlan:\r\n{plan}\r\n"
+
+
 def handle(query):
-    # We don't need no stinkin' := walrus operator, see?
+    # We don't need no stinkin' := walrus operator!
     match = q2_re.fullmatch(query)
     if match:
         return "Finger forwarding service denied"
@@ -120,16 +127,14 @@ def handle(query):
     match = q1_search_re.fullmatch(query)
     if match:
         if match.group("username") == FINGER_NAME:
-            contact = read_file(FINGER_CONTACT)
-            project = read_file(FINGER_PROJECT).strip()
-            plan = read_file(FINGER_PLAN)
-            return f"{contact}\r\nProject: {project}\r\nPlan:\r\n{plan}\r\n"
+            return render_user_info()
         else:
             return "Finger user not found"
 
     match = q1_list_re.fullmatch(query)
     if match:
-        return f"Users:\r\n{FINGER_NAME}"
+        # No point in showing a directory since we only have a single user
+        return render_user_info()
 
     return "Finger invalid query"
 
