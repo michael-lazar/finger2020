@@ -3,7 +3,8 @@
 *A tiny, secure [finger](https://en.wikipedia.org/wiki/Finger_protocol) daemon for single-user unix systems.*
 
 ![photo](photo.jpg)
-*Les Earnest, the creator of the original finger program, circa 1976 [(source)](https://www.saildart.org/Visitor_1976/).
+
+*Les Earnest, the creator of the original finger program, at SAIL circa 1976 [(source)](https://www.saildart.org/Visitor_1976/).*
 
 ## About
 
