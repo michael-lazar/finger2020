@@ -115,9 +115,9 @@ def read_file(filename):
 
 def render_user_info():
     contact = read_file(FINGER_CONTACT)
-    project = read_file(FINGER_PROJECT).strip()
-    plan = read_file(FINGER_PLAN)
-    return "\r\n".join([contact, "", f"Project:", project, "Plan:", plan])
+    project = read_file(FINGER_PROJECT)
+    plan = read_file(FINGER_PLAN).strip()
+    return "\r\n".join([contact, f"Project:", project, "", f"Plan: {plan}"])
 
 
 def handle(query):
