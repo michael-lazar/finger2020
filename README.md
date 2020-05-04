@@ -50,20 +50,21 @@ system.
 #### ``FINGER_CONTACT``
 
 This file replaces the section of the query response that contains
-information that finger would typically generate. Common values to include
-in this section include login name, real name, phone number, office,
-address, and recent system activity.
+information that finger would typically pull from */etc/passwd* and the GECOS
+field. Common values to include in this section include login name, real name,
+phone number, office, address, and recent system activity.
 
 #### ``FINGER_PROJECT``
 
-This file typically contains a short, single line message about what the
-user is currently working on.
+This file typically contains a multi-line "profile page" with additional
+information about the user. The information documented in this file does not
+frequently change.
 
 #### ``FINGER_PLAN``
 
-This file contains any free-form text that the user would like to include.
-Some examples might include their work calender, personalized ASCII art, or
-a TODO list.
+This file typically contains a brief description of what the user is currently
+working on. This file is intended to be updated frequently and there are no
+restrictions on what type of information the user can include.
 
 ## Links
 
