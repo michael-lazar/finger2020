@@ -67,6 +67,9 @@ a TODO list.
 
 ## Links
 
+- [RFC 742 - NAME/FINGER](https://tools.ietf.org/html/rfc742)
 - [RFC 1288 - The Finger User Information Protocol](https://tools.ietf.org/html/rfc1288)
 - [History of the Finger Protocol](http://www.rajivshah.com/Case_Studies/Finger/Finger.htm)
 - [finger URL Specification](https://tools.ietf.org/html/draft-ietf-uri-url-finger-02)
+- [Info-Gathering Tutorial](http://cd.textfiles.com/hmatrix/Tutorials/hTut_0173.html)
+- [Giving the Finger to port 79 / Simple Finger Deamon Tutorial](http://cd.textfiles.com/hmatrix/Tutorials/hTut_0269.html)
