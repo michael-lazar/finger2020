@@ -145,6 +145,7 @@ def main():
     sys.stderr.write(f"Received query: {query!r}\n")
     response = handle(query)
     sys.stdout.write(response)
+    sys.stdout.write("\r\n")
 
 
 if __name__ == "__main__":
