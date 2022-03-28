@@ -57,6 +57,11 @@ FINGER_PLAN
     This file typically contains a brief description of what the user is
     currently working on. This file is intended to be updated frequently and
     there are no restrictions on what type of information the user can include.
+
+FINGER_INFO_LABELS
+
+    Set to "true" or "false" to toggle showing the 'Project:' and 'Plan:' labels
+    in the response.
 """
 import os
 import re
@@ -77,6 +82,7 @@ FINGER_NAME = os.getenv("FINGER_NAME", "anonymous")
 FINGER_CONTACT = os.getenv("FINGER_CONTACT", os.path.join(HOME, ".contact"))
 FINGER_PLAN = os.getenv("FINGER_PLAN", os.path.join(HOME, ".plan"))
 FINGER_PROJECT = os.getenv("FINGER_PROJECT", os.path.join(HOME, ".project"))
+FINGER_INFO_LABELS = os.getenv("FINGER_INFO_LABELS", "true")
 
 # Query specification:
 #   {Q1}    ::= [{W}|{W}{S}{U}]{C}
@@ -117,7 +123,10 @@ def render_user_info():
     contact = read_file(FINGER_CONTACT)
     project = read_file(FINGER_PROJECT)
     plan = read_file(FINGER_PLAN).strip()
-    return "\r\n".join([contact, f"Project:", project, "", f"Plan: {plan}"])
+    if FINGER_INFO_LABELS == "false":
+        return "\r\n".join([contact, project, plan])
+    else:
+        return "\r\n".join([contact, f"Project:", project, "", f"Plan: {plan}"])
 
 
 def handle(query):
