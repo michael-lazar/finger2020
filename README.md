@@ -66,6 +66,11 @@ This file typically contains a brief description of what the user is currently
 working on. This file is intended to be updated frequently and there are no
 restrictions on what type of information the user can include.
 
+#### ``FINGER_INFO_LABELS``
+
+Set to "true" or "false" to toggle showing the 'Project:' and 'Plan:' labels
+in the response.
+
 ## Links
 
 - [RFC 742 - NAME/FINGER](https://tools.ietf.org/html/rfc742)
